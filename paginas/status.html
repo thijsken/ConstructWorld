@@ -1,0 +1,108 @@
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Status - ConstructWorld</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    
+    .status-table {
+      width: 90%;
+      max-width: 700px;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: rgba(0, 0, 0, 0.7);
+      border: 3px solid #2ecc71;
+      border-radius: 10px;
+      overflow: hidden;
+      font-family: 'Press Start 2P', monospace;
+    }
+    .status-table th, .status-table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 2px solid #2ecc71;
+      color: #fff;
+    }
+    .status-table th {
+      background: #111;
+      font-size: 14px;
+    }
+    .status-table td.online { color: #2ecc71; }
+    .status-table td.online { color: #e74c3c; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💬 Statuspagina</h1>
+    <p>Bekijk hier de live status van ons server en Discord Bot</p>
+  </header>
+
+  <nav>
+    <a href="../index.html">🏠 Home</a>
+    <a href="status.html">💬 Status</a>
+    <a href="#about">📖 Over</a>  
+  </nav>
+
+  <section class="intro">
+    <h2>Server & Bot Status</h2>
+    <table class="status-table">
+      <tr>
+        <th>Service</th>
+        <th>Status</th>
+        <th>Datails</th>
+      </tr>
+      <tr>
+        <td>Minecraft Server</td>
+        <td id="serverStatus" class="offline">...</td>
+        <td id="serverDetails">...</td>
+      </tr>
+      <tr>
+        <td>Discord Bot</td>
+        <td id="botStatus" class="offline">...</td>
+        <td id="botDetails">...</td>
+      </tr>
+    </table>
+  </section>
+
+  <footer>
+    <p>© 2025 ConstructWorld</p>
+  </footer>
+
+  <script>
+    const API_URL = "http://147.135.213.131:3001";
+
+    async function updateStatus() {
+      try{
+        const serverResp = await fetch(`${API_URL}/api/server`);
+        const serverData = await serverResp.json();
+        const serverOnline = serverData.online ? "🟢 Online" : "🔴 Offline";
+        document.getElementById("serverStatus").textContent = serverOnline;
+        document.getElementById("serverStatus").className = serverData.online? "online" : "offline";
+        document.getElementById("serverDetails").textContent = `${serverData.players} / ${serverData.maxPlayers} spelers, ${serverData.version || '-'}`;
+      } catch (err) {
+        document.getElementById("serverStatus").textContent = "🔴 Offline";
+        document.getElementById("serverStatus").className = "offline";
+        document.getElementById("serverDetails").textContent = "-";
+        console.error("Server API Fout:", err);
+      }
+
+      // bot status
+      try {
+        const botResp = await fetch(`${API_URL}/api/bot`);
+        const botData = await botResp.json();
+        const botOnline = botData.online ? "🟢 Online" : "🔴 Offline";
+        document.getElementById("botStatus").textContent = botOnline;
+        document.getElementById("botStatus").className = botData.online ? "online" : "offline";
+        document.getElementById("botDetails").textContent = `${botData.commansActive} commando's actief, Ping: ${botData.ping}ms`;
+      } catch (err) {
+        document.getElementById("botStatus").textContent = "🔴 Offline";
+        document.getElementById("botStatus").className = "offline";
+        document.getElementById("botDetails").textContent = "-";
+        console.error("Bot API fout:", err);
+      }
+    }
+
+    updateStatus();
+    setInterval(updateStatus, 10000); // 10 sec update
+  </script>
+</body>
+</html>

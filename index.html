@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>ConstructWorld</title>
+<link rel="stylesheet" href="./style.css">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>⚒️ ConstructWorld</h1>
+    <p>De ultieme Minecraft community</p>
+  </header>
+
+  <!-- Navigatie -->
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="./paginas/status.html">💬 Status</a>
+    <a href="./paginas/map.html">🗺️ Map</a>
+    <a href="#about">📖 Over</a>
+    <a href="./paginas/regelscommunity.html">📝 Regels & Community</a>
+    <a href="">📢 Nieuws & updates</a>
+  </nav>
+
+  <!-- Intro -->
+  <section class="intro">
+    <h2>Welkom!</h2>
+    <p>Ontdek de wereld van <span class="highlight">ConstructWorld</span> — een plek waar creativiteit en avontuur samenkomen.</p>
+  </section>
+
+  <!-- Status Cards -->
+   <div class="status-container">
+    <div class="status-card">
+        <div class="status-section server-section">
+            <h3>🌍 Server</h3>
+            <p id="serverOnline">Laden...</p>
+            <p id="serverPlayers">Laden...</p>
+            <p id="serverVersion">Laden...</p>
+            <p id="serverIP">Laden...</p>
+        </div>
+
+        <!--Bot Info-->
+        <div class="status-section bot-section">
+            <h3>🤖 Bot</h3>
+            <p id="botOnline">Laden...</p>
+            <p id="botCommands">Laden...</p>
+            <p id="botPing">Laden...</p>
+        </div>
+    </div>
+</div>
+
+  <!-- Community Map -->
+  <section id="map" class="map-section">
+    <h2>🗺️ Community Map</h2>
+    <div id="communityMap" style="height:400px;"></div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <h2>📖 Over de Server</h2>
+    <p>Onze server is gebouwd voor avontuur:</p>
+    <ul>
+      <li>🌍 Survival & Creative werelden</li>
+      <li>⚔️ PvP & Minigames</li>
+      <li>🎉 Wekelijkse evenementen</li>
+      <li>🤖 Eigen Discord bot</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2025 ConstructWorld – Minecraft style dashboard</p>
+  </footer>
+
+  <!-- Script voor realtime status -->
+  <script>
+const API_URL = "http://147.135.213.131:20061";
+
+// Server status ophalen
+async function loadServerStatus() {
+    try {
+        const response = await fetch(`${API_URL}/api/server`);
+        const data = await response.json();
+
+        document.getElementById("serverOnline").textContent = `Status: ${data.online ? "Online ✅" : "Offline ❌"}`;
+        document.getElementById("serverPlayers").textContent = `Players: ${data.players} / ${data.maxPlayers}`;
+        document.getElementById("serverVersion").textContent = `Version: ${data.version || '-'}`;
+        document.getElementById("serverIP").textContent = `IP: minecraft.deboernet.eu:23022`;
+    } catch (err) {
+        document.getElementById("serverOnline").textContent = "Status: Offline ❌";
+        document.getElementById("serverPlayers").textContent = "Players: - / -";
+        document.getElementById("serverVersion").textContent = "Version: -";
+        document.getElementById("serverIP").textContent = "IP: -";
+        console.error("Server API fout:", err);
+    }
+}
+
+// Bot status ophalen
+async function loadBotStatus() {
+    try {
+        const response = await fetch(`${API_URL}/api/bot`);
+        const data = await response.json();
+
+        document.getElementById("botOnline").textContent = `Status: ${data.online ? "Online ✅" : "Offline ❌"}`;
+        document.getElementById("botCommands").textContent = `Commands: ${data.commandsActive}`;
+        document.getElementById("botPing").textContent = `Ping: ${data.ping}ms`;
+    } catch (err) {
+        document.getElementById("botOnline").textContent = "Status: Offline ❌";
+        document.getElementById("botCommands").textContent = "Commands: -";
+        document.getElementById("botPing").textContent = "Ping: -";
+        console.error("Bot API fout:", err);
+    }
+}
+
+
+// Initial load + updates elke 10 seconden
+loadServerStatus();
+loadBotStatus();
+setInterval(loadServerStatus, 10000);
+setInterval(loadBotStatus, 10000);
+
+  </script>
+
+  <!-- Leaflet Map -->
+  <script>
+    const map = L.map('communityMap').setView([51.505, -0.09], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+  </script>
+  
+</body>
+</html>
+
