@@ -30,54 +30,39 @@ header, nav, footer { background: rgba(0,0,0,0.7); color:#2ecc71; padding: 20px;
 <div id="map"></div>
 
 <script>
-// Definieer maps (grote afbeelding URL)
+// Definieer maps
 const maps = {
-  normal: { title:"Normale Map", description:"Standaard map", image:"https://files.catbox.moe/4rz1hk.jpg", size:[2048,2048], maxZoom:5 },
-  bedrock: { title:"Bedrock Map", description:"Bedrock map", image:"https://i.imgur.com/k5F0L0u.png", size:[2048,2048], maxZoom:5 },
-  test: { title:"Test Map", description:"Test map", image:"https://i.imgur.com/4gHk2vC.png", size:[2048,2048], maxZoom:5 }
+  normal: { title:"Normale Map", image:"https://files.catbox.moe/4rz1hk.jpg", size:[2048,2048] },
+  bedrock: { title:"Bedrock Map", image:"https://i.imgur.com/k5F0L0u.png", size:[2048,2048] },
+  test: { title:"Test Map", image:"https://i.imgur.com/4gHk2vC.png", size:[2048,2048] }
 };
 
-let map = L.map('map', {crs:L.CRS.Simple, minZoom:0, maxZoom:5});
-let tileLayer = null;
+// Init map
+let map = L.map('map', {
+  crs: L.CRS.Simple,
+  minZoom: -2,
+  maxZoom: 2,
+  zoomControl: true
+});
+
+let currentOverlay = null;
 
 function showMap(mapId){
     const selected = maps[mapId];
-    if(tileLayer) map.removeLayer(tileLayer);
 
-    // Maak canvas tile layer
-    tileLayer = L.TileLayer.extend({
-        getTileUrl: function(coords){
-            // Dynamisch tile slice: bereken canvas gebied
-            const zoom = coords.z;
-            const tilesPerRow = Math.pow(2, zoom);
-            const tileSize = selected.size[0]/tilesPerRow;
+    // Verwijder vorige overlay
+    if(currentOverlay) map.removeLayer(currentOverlay);
 
-            const x = coords.x*tileSize;
-            const y = coords.y*tileSize;
+    // Bereken bounds
+    const w = selected.size[0];
+    const h = selected.size[1];
+    const bounds = [[0,0],[h,w]]; // Leaflet gebruikt [y,x]
 
-            // Canvas genereren en als data URL
-            const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
-            const ctx = canvas.getContext('2d');
+    // Voeg image overlay toe
+    currentOverlay = L.imageOverlay(selected.image, bounds).addTo(map);
 
-            const img = new Image();
-            img.crossOrigin="anonymous";
-            img.src = selected.image;
-
-            // Omdat image loading async is, teruggeven als Promise werkt niet in Leaflet.
-            // Daarom direct image tekenen zodra geladen
-            img.onload = ()=>ctx.drawImage(img, x, y, tileSize, tileSize, 0,0,256,256);
-
-            return canvas.toDataURL();
-        },
-        tileSize: 256,
-        maxZoom: selected.maxZoom
-    });
-
-    tileLayer = new tileLayer();
-    tileLayer.addTo(map);
-    map.setView([selected.size[0]/2, selected.size[1]/2], 0);
+    // Pas view aan zodat de hele map zichtbaar is
+    map.fitBounds(bounds);
 }
 
 // Start met normale map
