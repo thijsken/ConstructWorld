@@ -92,13 +92,13 @@
         const botResp = await fetch(`${API_URL}/api/bot`);
         const botData = await botResp.json();
         const botOnline = botData.online ? "🟢 Online" : "🔴 Offline";
-        document.getElementById("botOnline").textContent = `Status: ${data.online ? "Online ✅" : "Offline ❌"}`;
-        document.getElementById("botCommands").textContent = `Commands: ${data.commandsActive}`;
-        document.getElementById("botPing").textContent = `Ping: ${data.ping}ms`;
-    } catch (err) {
-        document.getElementById("botOnline").textContent = "Status: Offline ❌";
-        document.getElementById("botCommands").textContent = "Commands: -";
-        document.getElementById("botPing").textContent = "Ping: -";
+        document.getElementById("botStatus").textContent = botOnline;
+        document.getElementById("botStatus").className = botData.online ? "online" : "offline";
+        document.getElementById("botDetails").textContent = `Ping: ${botData.ping}ms`;
+      } catch (err) {
+        document.getElementById("botStatus").textContent = "🔴 Offline";
+        document.getElementById("botStatus").className = "offline";
+        document.getElementById("botDetails").textContent = "-";
         console.error("Bot API fout:", err);
       }
     }
