@@ -4,8 +4,7 @@ body {
   padding: 0;
   font-family: 'Press Start 2P', cursive;
   color: #fff;
-  background: 
-    url("https://www.filterforge.com/filters/11635-v2.jpg"); /* Minecraft grass/stone tile */
+  background: url("https://www.filterforge.com/filters/11635-v2.jpg"); 
   background-size: 128px 128px; /* geeft blokkerig patroon */
   background-repeat: repeat;
 }
