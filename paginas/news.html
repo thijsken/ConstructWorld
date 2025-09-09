@@ -3,31 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>📢 Nieuws & Updates</title>
-<link rel="stylesheet" href="./style.css">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
 <style>
     body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Press Start 2P', cursive;
-    color: #fff;
-    background: url("https://www.filterforge.com/filters/11635-v2.jpg"); 
-    background-size: 128px 128px; /* geeft blokkerig patroon */
-    background-repeat: repeat;
+        margin: 0;
+        padding: 0;
+        background: #1a1a1a;
+        font-family: 'Press Start 2P', monospace;
+        color: #fff;
+        text-align: center;
     }
 
     header {
         padding: 25px;
         background: #111;
-        border-bottom: 5px solid #00ff00;
-        box-shadow: 0 0 15px #00ff00;
+        border-bottom: 5px solid #2ecc71;
     }
 
     header h1 {
         margin: 0;
         font-size: 22px;
-        color: #00ff00;
-        text-shadow: 2px 2px #000;
+        color: #2ecc71;
     }
 
     header p {
@@ -42,71 +38,53 @@
 
     nav a {
         text-decoration: none;
-        color: #00ff00;
+        color: #2ecc71;
         margin: 0 10px;
         padding: 8px 15px;
-        border: 2px solid #00ff00;
+        border: 2px solid #2ecc71;
         border-radius: 6px;
-        transition: all 0.3s ease;
+        transition: 0.2s;
         display: inline-block;
     }
 
     nav a:hover {
-        background: #00ff00;
+        background: #2ecc71;
         color: #111;
-        box-shadow: 0 0 10px #00ff00;
         transform: translateY(-2px);
     }
 
-    .news-container {
+    .news-table {
         width: 90%;
-        max-width: 900px;
-        margin: 40px auto;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+        max-width: 700px;
+        margin: 30px auto;
+        border-collapse: collapse;
+        background: rgba(0, 0, 0, 0.7);
+        border: 3px solid #2ecc71;
+        border-radius: 10px;
+        overflow: hidden;
     }
 
-    .news-item {
-        background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
-        border: 3px solid #7e400c;
-        border-radius: 12px;
-        padding: 25px;
-        text-align: left;
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .news-item:hover {
-        transform: scale(1.03);
-        box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
-    }
-
-    .news-date {
-        font-size: 10px;
-        color: #aaffaa;
-        margin-bottom: 8px;
-    }
-
-    .news-title {
-        font-size: 14px;
-        color: #ffff00;
-        margin-bottom: 12px;
-        text-shadow: 1px 1px #000;
-    }
-
-    .news-content {
+    .news-table th, .news-table td {
+        padding: 15px;
+        text-align: center;
+        border-bottom: 2px solid #2ecc71;
+        color: #fff;
         font-size: 12px;
-        line-height: 1.6;
-        color: #ddd;
     }
+
+    .news-table th {
+        background: #111;
+        font-size: 14px;
+    }
+
+    .news-table td.status-online { color: #2ecc71; }
+    .news-table td.status-offline { color: #e74c3c; }
 
     footer {
         margin-top: 40px;
         padding: 15px;
         background: #111;
-        border-top: 3px solid #00ff00;
-        box-shadow: 0 -0 10px #00ff00;
+        border-top: 3px solid #2ecc71;
         font-size: 10px;
         color: #aaa;
     }
@@ -118,15 +96,8 @@
             font-size: 10px;
         }
 
-        .news-item {
-            padding: 15px;
-        }
-
-        .news-title {
-            font-size: 12px;
-        }
-
-        .news-content {
+        .news-table th, .news-table td {
+            padding: 10px;
             font-size: 10px;
         }
     }
@@ -140,37 +111,37 @@
 </header>
 
 <nav>
-    <a href="index.html">🏠 Home</a>
+    <a href="../index.html">🏠 Home</a>
     <a href="status.html">💬 Status</a>
     <a href="map.html">🗺️ Map</a>
     <a href="regelscommunity.html">📝 Regels & Community</a>
     <a href="news.html">📢 Nieuws & updates</a>
 </nav>
 
-<section class="news-container">
-    <div class="news-item">
-        <div class="news-date">09-09-2025</div>
-        <div class="news-title">🪓 Minecrafty Update 1.2</div>
-        <div class="news-content">
-            Een grote update met nieuwe blokken, mobs en quests. Verken de wereld en ontdek de geheimen!
-        </div>
-    </div>
-
-    <div class="news-item">
-        <div class="news-date">01-09-2025</div>
-        <div class="news-title">⚒️ Onderhoud voltooid</div>
-        <div class="news-content">
-            Servers zijn geüpdatet en alle bugs zijn gefixt. Je kan weer zonder problemen spelen!
-        </div>
-    </div>
-
-    <div class="news-item">
-        <div class="news-date">20-08-2025</div>
-        <div class="news-title">🌟 Nieuwe community features</div>
-        <div class="news-content">
-            Verbeterde map, minigames en extra chatfuncties voor een betere speelervaring.
-        </div>
-    </div>
+<section class="intro">
+    <h2>Laatste Updates</h2>
+    <table class="news-table">
+        <tr>
+            <th>Datum</th>
+            <th>Titel</th>
+            <th>Omschrijving</th>
+        </tr>
+        <tr>
+            <td>09-09-2025</td>
+            <td>🪓 Minecrafty Update 1.2</td>
+            <td>Nieuwe blokken, mobs en quests toegevoegd. Verken de wereld!</td>
+        </tr>
+        <tr>
+            <td>01-09-2025</td>
+            <td>⚒️ Onderhoud voltooid</td>
+            <td>Servers geüpdatet en bugs gefixt. Alles draait weer soepel.</td>
+        </tr>
+        <tr>
+            <td>20-08-2025</td>
+            <td>🌟 Nieuwe community features</td>
+            <td>Verbeterde map, minigames en extra chatfuncties beschikbaar.</td>
+        </tr>
+    </table>
 </section>
 
 <footer>
