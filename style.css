@@ -91,7 +91,7 @@ nav a:hover { background: #e91621; color: #111; box-shadow: 0 0 20px #e91621; tr
 }
 .status-card:hover {
   transform: scale(1.02);
-  box-shadow: 0 0 45px rgba(46, 204, 113, 0.9);
+  box-shadow: 0 0 45px rgba(#e91621);
 }
 .status-section {
   background: #2f3136;
