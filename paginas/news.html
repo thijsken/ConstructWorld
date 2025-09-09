@@ -2,10 +2,10 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<title>🪓 Meldingen & Updates</title>
+<title>📢 Nieuws & Updates</title>
+<link rel="stylesheet" href="./style.css">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-    /* Basis en body */
     body {
         margin: 0;
         padding: 0;
@@ -15,7 +15,6 @@
         text-align: center;
     }
 
-    /* Header */
     header {
         padding: 25px;
         background: #111;
@@ -36,7 +35,6 @@
         color: #aaa;
     }
 
-    /* Navigatie */
     nav {
         margin: 20px 0;
     }
@@ -59,7 +57,6 @@
         transform: translateY(-2px);
     }
 
-    /* Nieuws container */
     .news-container {
         width: 90%;
         max-width: 900px;
@@ -69,7 +66,6 @@
         gap: 20px;
     }
 
-    /* Nieuws items */
     .news-item {
         background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
         border: 3px solid #00ff00;
@@ -85,14 +81,12 @@
         box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
     }
 
-    /* Datum */
     .news-date {
         font-size: 10px;
         color: #aaffaa;
         margin-bottom: 8px;
     }
 
-    /* Titel */
     .news-title {
         font-size: 14px;
         color: #ffff00;
@@ -100,14 +94,22 @@
         text-shadow: 1px 1px #000;
     }
 
-    /* Content */
     .news-content {
         font-size: 12px;
         line-height: 1.6;
         color: #ddd;
     }
 
-    /* Responsive */
+    footer {
+        margin-top: 40px;
+        padding: 15px;
+        background: #111;
+        border-top: 3px solid #00ff00;
+        box-shadow: 0 -0 10px #00ff00;
+        font-size: 10px;
+        color: #aaa;
+    }
+
     @media (max-width: 600px) {
         nav a {
             margin: 5px;
@@ -130,20 +132,21 @@
 </style>
 </head>
 <body>
+
 <header>
-    <h1>📢 News & Updates</h1>
+    <h1>📢 Nieuws & Updates</h1>
     <p>Bekijk hier al het nieuws en de laatste server-updates!</p>
 </header>
 
 <nav>
-    <a href="../index.html">🏠 Home</a>
+    <a href="index.html">🏠 Home</a>
     <a href="status.html">💬 Status</a>
     <a href="map.html">🗺️ Map</a>
-    <a href="regelscommunity.html">📝 Regels</a>
-    <a href="#news">📢 Updates</a>
+    <a href="regelscommunity.html">📝 Regels & Community</a>
+    <a href="news.html">📢 Nieuws & updates</a>
 </nav>
 
-<section class="news-container" id="news">
+<section class="news-container">
     <div class="news-item">
         <div class="news-date">09-09-2025</div>
         <div class="news-title">🪓 Minecrafty Update 1.2</div>
@@ -168,5 +171,10 @@
         </div>
     </div>
 </section>
+
+<footer>
+    <p>© 2025 ConstructWorld</p>
+</footer>
+
 </body>
 </html>
