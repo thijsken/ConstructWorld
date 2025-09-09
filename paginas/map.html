@@ -14,8 +14,9 @@ body {
   color: #fff;
   overflow-x: hidden;
   background: url("https://www.filterforge.com/filters/11635-v2.jpg"); 
-  background-size: 128px 128px; /* geeft blokkerig patroon */
-  background-repeat: repeat;  animation: dayNight 60s infinite alternate;
+  background-size: 128px 128px;
+  background-repeat: repeat;  
+  animation: dayNight 60s infinite alternate;
 }
 
 /* Header en Nav */
@@ -51,10 +52,6 @@ footer { text-align: center; padding: 20px; background: rgba(0,0,0,0.9); border-
 </head>
 <body>
 
-<!-- <header>
-  <h1>🗺️ Server Maps</h1>
-  <p>Kies een map en bekijk de overlay</p>
-</header> -->
 <header style="display: flex; align-items: center; justify-content: center; gap: 15px;">
   <img src="../images/logoserverteije.png" alt="ConstructWorld Logo" 
        style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">
@@ -91,14 +88,30 @@ footer { text-align: center; padding: 20px; background: rgba(0,0,0,0.9); border-
 </footer>
 
 <script>
+// Gebruik van tile-based maps voor hoge resolutie
 const maps = {
-  normal: { title: "Normale Map", description: "De standaard Survival / Creative map voor alle spelers.", image: "https://i.imgur.com/0f4kxMu.png", bounds: [[0,0],[1000,1000]], maxNativeZoom: 5 },
-  bedrock: { title: "Bedrock Map", description: "Speciaal voor Bedrock-spelers met compatibele wereld en builds.", image: "images/bedrock_map.png", bounds: [[0,0],[1000,1000]] },
-  test: { title: "Test Map", description: "Voor nieuwe projecten en experimenten. Alleen toegankelijk voor staff en testers.", image: "images/test_map.png", bounds: [[0,0],[1000,1000]] }
+  normal: { 
+    title: "Normale Map", 
+    description: "De standaard Survival / Creative map voor alle spelers.", 
+    tileUrl: "https://i.imgur.com/0f4kxMu.png", // hoge-resolutie afbeelding
+    bounds: [[0,0],[1000,1000]] 
+  },
+  bedrock: { 
+    title: "Bedrock Map", 
+    description: "Speciaal voor Bedrock-spelers met compatibele wereld en builds.", 
+    tileUrl: "images/bedrock_map.png", 
+    bounds: [[0,0],[1000,1000]] 
+  },
+  test: { 
+    title: "Test Map", 
+    description: "Voor nieuwe projecten en experimenten. Alleen toegankelijk voor staff en testers.", 
+    tileUrl: "images/test_map.png", 
+    bounds: [[0,0],[1000,1000]] 
+  }
 };
 
 // Leaflet kaart initialiseren
-let map = L.map('map', { crs: L.CRS.Simple, minZoom: -5 });
+let map = L.map('map', { crs: L.CRS.Simple, minZoom: -5, maxZoom: 5 });
 let overlay = null;
 
 function showMap(mapId) {
@@ -107,14 +120,16 @@ function showMap(mapId) {
   document.getElementById('map-description').textContent = selected.description;
 
   if (overlay) map.removeLayer(overlay);
-  overlay = L.imageOverlay(selected.image, selected.bounds).addTo(map);
+
+  // Gebruik hoge-resolutie afbeelding als overlay
+  overlay = L.imageOverlay(selected.tileUrl, selected.bounds, { opacity: 1 }).addTo(map);
+
   map.fitBounds(selected.bounds);
 }
 
 // Start met standaard map
 showMap('normal');
 </script>
-
 
 </body>
 </html>
