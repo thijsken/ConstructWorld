@@ -1,46 +1,172 @@
+<!DOCTYPE html>
 <html lang="nl">
-    <head>
-        <meta charset="UTF-8">
-        <title> Meldingen & Updates</title>
-        <link rel="stylesheet" href="../style.css">
-    <style> 
-        .news-table {
-        width: 90%;
-        max-width: 700px;
-        margin: 30px auto;
-        border-collapse: collapse;
-        background: rgba(0, 0, 0, 0.7);
-        border: 3px solid #2ecc71;
-        border-radius: 10px;
-        overflow: hidden;
+<head>
+<meta charset="UTF-8">
+<title>🪓 Meldingen & Updates</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+    /* Basis en body */
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
         font-family: 'Press Start 2P', monospace;
-        }
-        .news-table th, .news-table td {
-        padding: 15px;
-        text-align: center;
-        border-bottom: 2px solid #2ecc71;
         color: #fff;
-        }
-        .news-table th {
-        background: #111;
-        font-size: 14px;
-        }
-        .news-table td.online { color: #2ecc71; }
-        .news-table td.online { color: #e74c3c; }
-    </style>
-    </head>
-    <body>
-        <header>
-            <h1>News & Updates</h1>
-            <p>Bekijk hier all het News | Updates van de server</p>
-        </header>
+        text-align: center;
+    }
 
-        <nav>
-            <a href="../index.html">🏠 Home</a>
-            <a href="status.html">💬 Status</a>
-            <a href="map.html">🗺️ Map</a>
-            <a href="regelscommunity.html">📝 Regels & Community</a>
-            <a href="#news">📢 Nieuws & updates</a>
-        </nav>
-    </body>
+    /* Header */
+    header {
+        padding: 25px;
+        background: #111;
+        border-bottom: 5px solid #00ff00;
+        box-shadow: 0 0 15px #00ff00;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 22px;
+        color: #00ff00;
+        text-shadow: 2px 2px #000;
+    }
+
+    header p {
+        margin-top: 5px;
+        font-size: 12px;
+        color: #aaa;
+    }
+
+    /* Navigatie */
+    nav {
+        margin: 20px 0;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #00ff00;
+        margin: 0 10px;
+        padding: 8px 15px;
+        border: 2px solid #00ff00;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    nav a:hover {
+        background: #00ff00;
+        color: #111;
+        box-shadow: 0 0 10px #00ff00;
+        transform: translateY(-2px);
+    }
+
+    /* Nieuws container */
+    .news-container {
+        width: 90%;
+        max-width: 900px;
+        margin: 40px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Nieuws items */
+    .news-item {
+        background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
+        border: 3px solid #00ff00;
+        border-radius: 12px;
+        padding: 25px;
+        text-align: left;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .news-item:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 25px rgba(0, 255, 0, 0.8);
+    }
+
+    /* Datum */
+    .news-date {
+        font-size: 10px;
+        color: #aaffaa;
+        margin-bottom: 8px;
+    }
+
+    /* Titel */
+    .news-title {
+        font-size: 14px;
+        color: #ffff00;
+        margin-bottom: 12px;
+        text-shadow: 1px 1px #000;
+    }
+
+    /* Content */
+    .news-content {
+        font-size: 12px;
+        line-height: 1.6;
+        color: #ddd;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        nav a {
+            margin: 5px;
+            padding: 6px 10px;
+            font-size: 10px;
+        }
+
+        .news-item {
+            padding: 15px;
+        }
+
+        .news-title {
+            font-size: 12px;
+        }
+
+        .news-content {
+            font-size: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>📢 News & Updates</h1>
+    <p>Bekijk hier al het nieuws en de laatste server-updates!</p>
+</header>
+
+<nav>
+    <a href="../index.html">🏠 Home</a>
+    <a href="status.html">💬 Status</a>
+    <a href="map.html">🗺️ Map</a>
+    <a href="regelscommunity.html">📝 Regels</a>
+    <a href="#news">📢 Updates</a>
+</nav>
+
+<section class="news-container" id="news">
+    <div class="news-item">
+        <div class="news-date">09-09-2025</div>
+        <div class="news-title">🪓 Minecrafty Update 1.2</div>
+        <div class="news-content">
+            Een grote update met nieuwe blokken, mobs en quests. Verken de wereld en ontdek de geheimen!
+        </div>
+    </div>
+
+    <div class="news-item">
+        <div class="news-date">01-09-2025</div>
+        <div class="news-title">⚒️ Onderhoud voltooid</div>
+        <div class="news-content">
+            Servers zijn geüpdatet en alle bugs zijn gefixt. Je kan weer zonder problemen spelen!
+        </div>
+    </div>
+
+    <div class="news-item">
+        <div class="news-date">20-08-2025</div>
+        <div class="news-title">🌟 Nieuwe community features</div>
+        <div class="news-content">
+            Verbeterde map, minigames en extra chatfuncties voor een betere speelervaring.
+        </div>
+    </div>
+</section>
+</body>
 </html>
